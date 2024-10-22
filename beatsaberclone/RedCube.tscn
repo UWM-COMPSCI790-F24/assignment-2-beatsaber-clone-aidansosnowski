@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvjsvdf2g4gtl"]
+
+[ext_resource type="Script" path="res://scripts/cube2.gd" id="1_6kypi"]
+[ext_resource type="Material" uid="uid://bn87uetbw3d7m" path="res://Materials/Red.tres" id="2_eili4"]
+[ext_resource type="AudioStream" uid="uid://bdmlxjr6a14c1" path="res://notification-positive-bleep-joshua-chivers-1-00-01.mp3" id="3_aly2h"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_27sxc"]
+material = ExtResource("2_eili4")
+
+[node name="cube" type="Area3D"]
+script = ExtResource("1_6kypi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_27sxc")
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="."]
+polygon = PackedVector2Array(-0.511085, 0.541319, -0.539253, -0.463342, 0.512354, -0.500899, 0.521744, 0.513151)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_aly2h")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://c06ttrwwbq13"]
+
+[ext_resource type="PackedScene" uid="uid://dqt25keetujdb" path="res://controller.tscn" id="1_jbcoe"]
+[ext_resource type="Script" path="res://beat_saber.gd" id="1_qlnqj"]
+[ext_resource type="Material" uid="uid://ddxwsrmnxrvwh" path="res://Materials/Green.tres" id="2_lc4wu"]
+[ext_resource type="PackedScene" uid="uid://ec0xedqn70jj" path="res://BlueCube.tscn" id="5_1ykdw"]
+[ext_resource type="Script" path="res://scripts/cube_spawner2.gd" id="6_bhix6"]
+[ext_resource type="PackedScene" uid="uid://cvjsvdf2g4gtl" path="res://RedCube.tscn" id="7_nqstg"]
+[ext_resource type="Script" path="res://scripts/cube_spawner.gd" id="7_onvpb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3pwx0"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kg8p2"]
+size = Vector3(20, 1, 20)
+
+[node name="BeatSaber" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+script = ExtResource("1_qlnqj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.9657, 0, 0)
+visible = false
+
+[node name="CSGBox3D" type="CSGBox3D" parent="WorldEnvironment/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7093, 0, 0)
+size = Vector3(20, 1, 20)
+material = ExtResource("2_lc4wu")
+
+[node name="Area3D" type="Area3D" parent="WorldEnvironment/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.2886, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/Floor/Area3D"]
+shape = SubResource("BoxShape3D_3pwx0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/Floor"]
+shape = SubResource("BoxShape3D_kg8p2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.849534, 0.527534, 0, -0.527534, 0.849534, 0, 4.0975, 1.21529)
+
+[node name="Controller" parent="." instance=ExtResource("1_jbcoe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0)
+
+[node name="BlueCubeSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -10)
+script = ExtResource("7_onvpb")
+cube_scene = ExtResource("5_1ykdw")
+
+[node name="RedCubeSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -10)
+script = ExtResource("6_bhix6")
+cube_scene = ExtResource("7_nqstg")
+
+[node name="BlueCubeTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 6)
+
+[node name="RedCubeTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 6)
